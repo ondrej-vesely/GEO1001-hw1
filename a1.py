@@ -67,6 +67,30 @@ def show_frequency(data, bins=20):
     plt.show()
 
 
+# Question 4
+def show_boxplots(data):
+    fig = plt.figure(figsize=(13,4))
+
+    subplots = [fig.add_subplot(131), 
+                fig.add_subplot(132),
+                fig.add_subplot(133)]
+
+    variables = ['Wind Speed', 
+                'Direction ‚ True', 
+                'Temperature']
+
+    for ax, variable in zip(subplots, variables):
+        total_values = []
+        for sensor_name, sensor in data.items():
+            values = sensor[variable]['values']
+            total_values.append(values)  
+        ax.boxplot(total_values, showmeans=True, labels=data.keys())
+        ax.set_ylabel('%s [%s]' % (variable, sensor[variable]['units']))
+            
+    plt.tight_layout()
+    plt.show()
+
+
 
 # Main function to be called
 def main():
@@ -88,6 +112,9 @@ def main():
 
     if promt("Show frequency plot for Temperature measurments?"):
         show_frequency(data, input('  Number of bins:  '))
+
+    if promt("Show frequency plot for Temperature measurments?"):
+        show_boxplots(data)
 
 
 if __name__ == '__main__':
