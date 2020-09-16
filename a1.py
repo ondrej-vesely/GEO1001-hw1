@@ -113,7 +113,7 @@ def main():
     if promt("Show frequency plot for Temperature measurments?"):
         show_frequency(data, input('  Number of bins:  '))
 
-    if promt("Show frequency plot for Temperature measurments?"):
+    if promt("Show boxplots for Wind Speed, Direction and Temperature?"):
         show_boxplots(data)
 
 
