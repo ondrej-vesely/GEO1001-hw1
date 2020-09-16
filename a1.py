@@ -2,11 +2,13 @@
 #-- Ondrej Vesely
 #-- 5162130
 
-import matplotlib.pyplot as plt	
+import numpy as np
+import matplotlib.pyplot as plt
 
-from _data import *
+from _data import data
 
 
+# Question 1
 def print_stats(data):
     for sensor_name, sensor in data.items():
         print('\n', sensor_name, '_'*70, '\n')
@@ -19,11 +21,10 @@ def print_stats(data):
                 print("    mean = %s  var = %s  st.var. = %s" % stats)
 
 
-def show_histograms(data, bins=50):
-    try:
-        bins = int(bins)
-    except:
-        bins = 50
+# Question 2
+def show_histograms(data, bins=5):
+    try: bins = int(bins)
+    except: bins = 5
         
     variable = 'Temperature'
     fig = plt.figure(figsize=(28,4))
@@ -41,11 +42,53 @@ def show_histograms(data, bins=50):
     plt.show()
 
 
+# Question 3
+def show_frequency(data, bins=20):
+    try: bins = int(bins)
+    except: bins = 20
+
+    variable = 'Temperature'
+    fig = plt.figure(figsize=(10,4))
+
+    ax = fig.add_subplot(111)
+    ax.set_title('Binned value frequency (%s bins)' % bins)
+
+    for sensor_name, sensor in data.items():
+        values = sensor[variable]['values']
+        [frequency, bins] = np.histogram(values, 
+                                        bins=bins)
+        frequency = [f/len(values) for f in frequency]
+        ax.plot(bins[:-1], frequency, 
+                label=sensor_name)
+        ax.set_xlabel('%s [%s]' % (variable, sensor[variable]['units']))
+        ax.set_ylabel('Frequency')
+        
+    plt.legend(loc='upper right')
+    plt.show()
+
+
+
+# Main function to be called
 def main():
-    if 'y' in input("Print out mean statistics for all variables? y/n:  "):
+
+    def promt(question):
+        print('\n')
+        while True:
+            reply = str(input(question+' (y/n): ')).lower().strip()
+            if reply[:1] == 'y':
+                return True
+            if reply[:1] == 'n':
+                return False
+
+    if promt("Print out mean statistics for all variables?"):
         print_stats(data)
 
-    if 'y' in input("Show histograms of Temperature measurments? y/n:  "):
-        show_histograms(data, input('Number of bins:  '))
+    if promt("Show histograms of Temperature measurments?"):
+        show_histograms(data, input('  Number of bins:  '))
 
-main()
+    if promt("Show frequency plot for Temperature measurments?"):
+        show_frequency(data, input('  Number of bins:  '))
+
+
+if __name__ == '__main__':
+    main()

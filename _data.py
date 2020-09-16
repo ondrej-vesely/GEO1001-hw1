@@ -1,6 +1,6 @@
-#-- GEO1001.2020--hw01
-#-- Ondrej Vesely
-#-- 5162130
+# -- GEO1001.2020--hw01
+# -- Ondrej Vesely
+# -- 5162130
 
 import pandas as pd
 import numpy as np
@@ -8,14 +8,14 @@ import numpy as np
 
 def parse(path):
     """Parse heat stress sensor data excel sheet into dicts of value arrays."""
-
+    
     raw_data = pd.read_excel(path)
     raw_data = np.array(raw_data)
     raw_data = np.swapaxes(raw_data, 0, 1)
 
     data = {}
     for column in raw_data:
-        measure = column[2]
+        variable = column[2]
         units = column[3]
         values = column[4:]
 
@@ -26,10 +26,10 @@ def parse(path):
                 except:
                     values[i] = None
 
-        data[measure] = {}
-        data[measure]['units'] = units
-        data[measure]['values'] = values
-    
+        data[variable] = {}
+        data[variable]['units'] = units
+        data[variable]['values'] = values
+
     return data
 
 
@@ -45,4 +45,4 @@ data = {
     'Sensor C': heat_c,
     'Sensor D': heat_d,
     'Sensor E': heat_e
-    }
+}
