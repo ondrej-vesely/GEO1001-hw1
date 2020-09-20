@@ -4,6 +4,8 @@
 
 import pandas as pd
 import numpy as np
+import os
+path = os.path.dirname(os.path.abspath(__file__))
 
 
 def parse(path):
@@ -33,11 +35,11 @@ def parse(path):
     return data
 
 
-heat_a = parse('./data/HEAT - A_final.xls')
-heat_b = parse('./data/HEAT - B_final.xls')
-heat_c = parse('./data/HEAT - C_final.xls')
-heat_d = parse('./data/HEAT - D_final.xls')
-heat_e = parse('./data/HEAT - E_final.xls')
+heat_a = parse(path + '/data/HEAT - A_final.xls')
+heat_b = parse(path + '/data/HEAT - B_final.xls')
+heat_c = parse(path + '/data/HEAT - C_final.xls')
+heat_d = parse(path + '/data/HEAT - D_final.xls')
+heat_e = parse(path + '/data/HEAT - E_final.xls')
 
 data = {
     'Sensor A': heat_a,
