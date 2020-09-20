@@ -26,7 +26,7 @@ def show_distr(data, bins=50):
         a = ax.bar(values.index, values)
         ax.set_ylim(0, 0.025)
         ax.set_xlabel('%s [%s]' % (variable, sensor[variable]['units']))
-        ax.set_ylabel('Probability Mass')
+        ax.set_ylabel('Probability Mass (%s values)' % len(values))
         ax.set_title(sensor_name)
 
     # PDF
@@ -34,10 +34,12 @@ def show_distr(data, bins=50):
         ax = plt.subplot2grid((3,5), (1,i))
         values = sensor[variable]['values']
         
-        a = ax.hist(values, bins=bins, density=True)
+        a = ax.hist(values, bins=bins, density=True, alpha=0.5)
+        hist_x, hist_y = (a[1][1:]-(a[1][1:]-a[1][:-1])/2, a[0])
+        ax.plot(hist_x, hist_y)
         ax.set_ylim(0, 0.2)
         ax.set_xlabel('%s [%s]' % (variable, sensor[variable]['units']))
-        ax.set_ylabel('Probability Density')
+        ax.set_ylabel('Probability Density (%s bins)' % bins)
 
     # CDF
     for i, (sensor_name, sensor) in enumerate(data.items()):
