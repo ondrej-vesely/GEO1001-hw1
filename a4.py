@@ -14,7 +14,7 @@ from _prompt import prompt
 # Question 1a
 def show_cfd(data):
     variables = ['Temperature', 'Wind Speed']
-    fig = plt.figure(figsize=(18,7))
+    fig = plt.figure(figsize=(15,6))
     bins = 50
 
     for i, variable in enumerate(variables):
@@ -52,8 +52,7 @@ def show_confidence(data):
     print(df)
 
     if prompt("Save table as a CSV file?"):
-        path = input("Specify filename: ")
-        df.to_csv(path)
+        df.to_csv(input("Specify filename: "))
     
 
 
@@ -62,11 +61,11 @@ def show_confidence(data):
 # Main function to be called
 def main():
 
-    if prompt("Show correlation scatterplots for all sensors?"):
-        show_correlation(data)
+    if prompt("Show CFD plots for Temperature and Wind Speed?"):
+        show_cfd(data)
     
     if prompt("Show 95% confidence interval for Temperature and Wind Speed?"):
-        show_correlation(data)
+        show_confidence(data)
 
 
 if __name__ == '__main__':
