@@ -1,12 +1,14 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
+\usepackage{natbib}
+\usepackage{graphicx}
+
+
 \title{GEO1001 - Assignment 1 Report}
 \author{Ondrej Veselý}
 \date{21st September 2020}
 
-\usepackage{natbib}
-\usepackage{graphicx}
 
 \begin{document}
 
@@ -14,6 +16,7 @@
 
 \section*{Introduction}
 For this assignment we used the data-set containing climate data measured in 5 locations within the town of Rijsenhout \citep{data}. The report is roughly subdivided into five sections related to each independent lesson (i.e. A1-4 + Bonus), with each section further split into a subsection for each corresponding question.
+
 
 \newpage
 
@@ -40,6 +43,7 @@ See Figure ~\ref{fig:1-2}.
 \caption{Comparison of different histogram binning values}
 \label{fig:1-2}
 \end{figure}
+
 
 \newpage
 
@@ -71,6 +75,7 @@ See Figure ~\ref{fig:1-4}
 \label{fig:1-4}
 \end{figure}
 
+
 \newpage
 
 \section{A2}
@@ -81,7 +86,7 @@ Plot PMF, PDF and CDF for the 5 sensors Temperature values. Describe the behavio
 What about their tails?
 }\\
 
-See Figure ~\ref{fig:2-1}
+See Figure ~\ref{fig:2-1}. The temperature measurement distributions are all fairly similar and could be all described as asymmetrical positively-skewed distributions. They roughly resemble normal distributions, although some anomalies in the tails can be observed.
 
 \begin{figure}[!htb]
 \centering
@@ -89,6 +94,7 @@ See Figure ~\ref{fig:2-1}
 \caption{Probability mass, probability density and cumulative distribution functions of the temperature measurements}
 \label{fig:2-1}
 \end{figure}
+
 
 \newpage
 
@@ -109,6 +115,7 @@ See Figure ~\ref{fig:3-1}
 \label{fig:3-1}
 \end{figure}
 
+
 \newpage
 
 \subsection{Correlation conclusion}
@@ -117,7 +124,7 @@ What can you say about the sensors’ correlations?
 }\\
 
 We observe very strong (\(r>0.9\)) correlations in Temperature and Wet Bulb Globe Temperature measurements in between all sensors.
-The correlations between Crosswind Speed measurements are weak to moderate (\(0.4<r<0.6\)).
+The correlations between Crosswind Speed measurements are weak or moderate (\(0.4<r<0.6\)).
 % That is however to be expected, since compered to the measured wind-speed, which may differ greatly with small differences in sensor placement, temperature is a much more of a macro-scale phenomena.
 
 
@@ -143,21 +150,48 @@ Two pairs on sensors have been each situated in close proximity to each other, o
 \\ \quad Sensor E, x   \quad   \emph{Crosswind speed \textless0.473,   Temperature \textless0.972,   WBGT \textless0.954}
 
 
+\newpage
 
+\section{A4}
 
+\subsection{CDF and confidence intervals}
+\textit{
+Plot the CDF for all the sensors and for variables Temperature and Wind Speed, then compute the 95\% confidence intervals for variables Temperature and Wind Speed for all the sensors and save them in a table (txt or csv form).
+}\\
 
+See Figure~\ref{fig:4-1} and Table~\ref{tab:1}
 
-
-
-\section{Conclusion}
-``I always thought something was fundamentally wrong with the universe''
-
-\begin{figure}[ht!]
+\begin{figure}[!htb]
 \centering
-\includegraphics[scale=1.7]{universe}
-\caption{The Universe}
-\label{fig:universe}
+\includegraphics[width=\textwidth]{4-1-cdf.png}
+\caption{Cumulative distribution functions of Temperature and Wind Speed}
+\label{fig:4-1}
 \end{figure}
+
+\begin{table}[h]
+\label{tab:1}
+\begin{tabular}{llllll}
+            & Sensor A      & Sensor B      & Sensor C      & Sensor D      & Sensor E      \\
+Temperature & 17.81 - 18.13 & 17.90 - 18.23 & 17.75 - 18.07 & 17.84 - 18.15 & 18.18 - 18.53 \\
+Wind Speed  & 1.25 - 1.33   & 1.20 - 1.29   & 1.32 - 1.42   & 1.53 - 1.63   & 0.57 - 0.62  
+\end{tabular}
+\caption{Temperature and Wind Speed 95\% confidence intervals}
+\end{table}
+
+
+\subsection{Similarity hypothesis}
+\textit{
+Test the hypothesis: the time series for Temperature and Wind Speed are the same for sensors:
+\begin{itemize}
+\item 1) E, D
+\item 2) D, C
+\item 3) C, B
+\item 4) B, A
+\end{itemize}
+}\\
+
+
+\newpage
 
 \bibliographystyle{plain}
 \bibliography{references}
