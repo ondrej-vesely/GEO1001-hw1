@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from _data import data
+from _prompt import prompt
 
 
 # Question 1
@@ -95,25 +96,16 @@ def show_boxplots(data):
 # Main function to be called
 def main():
 
-    def promt(question):
-        print('\n')
-        while True:
-            reply = str(input(question+' (y/n): ')).lower().strip()
-            if reply[:1] == 'y':
-                return True
-            if reply[:1] == 'n':
-                return False
-
-    if promt("Print out mean statistics for all variables?"):
+    if prompt("Print out mean statistics for all variables?"):
         print_stats(data)
 
-    if promt("Show histograms of Temperature measurments?"):
+    if prompt("Show histograms of Temperature measurments?"):
         show_histograms(data, input('  Number of bins:  '))
 
-    if promt("Show frequency plot for Temperature measurments?"):
+    if prompt("Show frequency plot for Temperature measurments?"):
         show_frequency(data, input('  Number of bins:  '))
 
-    if promt("Show boxplots for Wind Speed, Direction and Temperature?"):
+    if prompt("Show boxplots for Wind Speed, Direction and Temperature?"):
         show_boxplots(data)
 
 

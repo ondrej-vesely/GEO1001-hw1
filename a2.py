@@ -7,6 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from _data import data
+from _prompt import prompt
 
 
 # Question1
@@ -64,16 +65,7 @@ def show_kernel(data):
 # Main function to be called
 def main():
 
-    def promt(question):
-        print('\n')
-        while True:
-            reply = str(input(question+' (y/n): ')).lower().strip()
-            if reply[:1] == 'y':
-                return True
-            if reply[:1] == 'n':
-                return False
-
-    if promt("Show PMF, PDF and CDF distribution plots?"):
+    if prompt("Show PMF, PDF and CDF distribution plots?"):
         show_distr(data, input('  Number of PDF bins:  '))
 
 

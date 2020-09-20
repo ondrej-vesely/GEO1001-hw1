@@ -6,11 +6,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
 
-from _data import data
-from _prompt import prompt
+from .._data import data
 
 
 # Question 1
+
 def show_correlation(data):
     variables = ['Crosswind Speed', 'Temperature', 'WBGT']
     fig = plt.figure(figsize=(14,14))
@@ -49,6 +49,15 @@ def show_correlation(data):
 
 # Main function to be called
 def main():
+
+    def prompt(question):
+        print('\n')
+        while True:
+            reply = str(input(question+' (y/n): ')).lower().strip()
+            if reply[:1] == 'y':
+                return True
+            if reply[:1] == 'n':
+                return False
 
     if prompt("Show correlation scatterplots for all sensors?"):
         show_correlation(data)
