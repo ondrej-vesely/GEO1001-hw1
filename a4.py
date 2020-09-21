@@ -53,9 +53,30 @@ def show_confidence(data):
 
     if prompt("Save table as a CSV file?"):
         df.to_csv(input("Specify filename: "))
-    
 
 
+# Question 2-3
+def show_similarity(data):
+    variables = ['Temperature', 'Wind Speed']
+    sensor_pairs = [('Sensor E', 'Sensor D'),
+                    ('Sensor D', 'Sensor C'),
+                    ('Sensor C', 'Sensor B'),
+                    ('Sensor B', 'Sensor A')]
+
+    arr = []
+    for i, variable in enumerate(variables):
+        arr.append([])
+        for pair in sensor_pairs:
+            _data = (data[sensor][variable]['values'] for sensor in pair)
+            arr[i].append('t=%.3f p=%.3f' % stats.ttest_ind(*_data))
+
+    short_names = [', '.join((a[-1:], b[-1:])) for a,b in sensor_pairs]
+    df2 = pd.DataFrame(arr, columns=short_names, index=variables)
+    print(df2)
+
+    if prompt("Save table as a CSV file?"):
+        df2.to_csv(input("Specify filename: "))
+        
 
 
 # Main function to be called
@@ -66,6 +87,9 @@ def main():
     
     if prompt("Show 95% confidence interval for Temperature and Wind Speed?"):
         show_confidence(data)
+    
+    if prompt("Show t-values and p-values between sensor pairs?"):
+        show_similarity(data)
 
 
 if __name__ == '__main__':
