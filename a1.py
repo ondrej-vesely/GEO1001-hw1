@@ -14,12 +14,12 @@ def print_stats(data):
     for variable, values in data['Sensor A'].items():
         if variable != 'FORMATTED DATE-TIME':
             name = ("%s [%s]:" % (variable, values['units']))
-            print('\n', name, '_'*70, '\n')
+            print('\n', name, '_'*20, '\n')
         
             for sensor_name, sensor in data.items():
                 print(sensor_name)
                 v = sensor[variable]['values']
-                print("    mean = %s  var = %s  st.var. = %s" % (v.mean(), v.var(), v.std()))
+                print("    mean = %.4f  var = %.4f st.var. = %.4f" % (v.mean(), v.var(), v.std()))
 
 
 # Question 2
@@ -37,7 +37,7 @@ def show_histograms(data, bins=5):
                 bins=bins, density=True, rwidth=0.85)
         ax.set_xlabel('%s [%s]' % (variable, sensor[variable]['units']))
         ax.set_ylabel('Frequency')
-        ax.set_title(sensor_name)y
+        ax.set_title(sensor_name)
 
     plt.tight_layout(pad=3.0)
     plt.show()
