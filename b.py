@@ -12,31 +12,28 @@ def bonus(data, treshold=25):
     try: treshold = int(treshold)
     except: treshold = 25
 
-    ac_temp_hours = defaultdict(int)
-    any_temp_hours = defaultdict(int)
+    temp_hours = defaultdict(int)
 
     for variables in data.values():
         dates = [dt.date() for dt in variables['FORMATTED DATE-TIME']['values']]
         temps = variables['Temperature']['values']
            
         for temp, date in zip(temps, dates):
-            any_temp_hours[date] += temp
             if temp > treshold:
-                ac_temp_hours[date] += temp
+                temp_hours[date] += temp
 
-    ac_ranking = sorted(ac_temp_hours.items(), key=lambda x: x[0])
-    any_ranking = sorted(any_temp_hours.items(), key=lambda x: x[0])
+    ranking = sorted(temp_hours.items(), key=lambda x: x[0])
 
 
     print('''
-    If we turn on AC in temperatures over %s°C, 
-    3 most energy demanding days in time-series would be:
+If we turn on AC in temperatures over %s°C, 
+3 most energy demanding days in time-series would be:
     ''' % treshold)
-    for day, temp in ac_ranking[:3]:
+    for day, temp in reversed(ranking[-3:]):
         print(day.strftime('%A %d %B %Y'))
 
-    print('\nThe 3 coolest days would be:\n')
-    for day, temp in any_ranking[-3:]:
+    print('\nThe 3 least demanding days would be:\n')
+    for day, temp in ranking[:3]:
         print(day.strftime('%A %d %B %Y'))
            
 
