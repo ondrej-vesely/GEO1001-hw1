@@ -27,14 +27,14 @@ For this assignment we used the data-set containing climate data measured in 5 l
 Compute mean statistics (mean, variance and standard deviation for each of the sensors variables), what do you observe from the results?
 }\\
 
-Answer.
+We observe fairly consistent mean statistics across all sensors for most of the variables. Of interest are Wind Speed, Crosswind Speed and Headwind Speed where Sensor E has significantly lower standard deviation and variance.
 
 \subsection{Temperature histograms}
 \textit{
 Create 1 plot that contains histograms for the 5 sensors Temperature values. Compare histograms with 5 and 50 bins, why is the number of bins important?
 }\\
 
-See Figure ~\ref{fig:1-2}.
+See Figure ~\ref{fig:1-2}. Number of bins that is too low doesn't give us a clear picture of the distribution. Higher numbers may introduce too much noise into the probability density estimation. Ideally we should choose the right amount of bins for our sample size using rule of thumb, e.g. Rice number (~16 for our case).
 
 \begin{figure}[!htb]
 \centering
@@ -93,6 +93,24 @@ See Figure ~\ref{fig:2-1}. The temperature measurement distributions are all fai
 \includegraphics[width=\textwidth]{2-1-14_bins.png}
 \caption{Probability mass, probability density and cumulative distribution functions of the temperature measurements}
 \label{fig:2-1}
+\end{figure}
+
+
+\newpage
+
+\subsection{Kernel Density Estimation}
+\textit{
+For the Wind Speed values, plot the pdf and the kernel density estimation. Comment the differences.
+}\\
+
+See Figure ~\ref{fig:2-2}. Assuming that PDF is smooth in reality, Kernel Density Estimation (KDE) smooths the PDF using a kernel function.
+The resulting estimated PDF shows less noise, introduced either by lower sample sizes, or high number of bins (i.e. in our case).
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=\textwidth]{2-2-kde.png}
+\caption{PDF and KDE for Wind Speed measurements (using 50 bins)}
+\label{fig:2-2}
 \end{figure}
 
 
@@ -168,7 +186,7 @@ See Figure~\ref{fig:4-1} and Table~\ref{tab:1}
 \label{fig:4-1}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[ht]
 \label{tab:1}
 \begin{tabular}{llllll}
             & Sensor A      & Sensor B      & Sensor C      & Sensor D      & Sensor E      \\
@@ -178,6 +196,8 @@ Wind Speed  & 1.25 - 1.33   & 1.20 - 1.29   & 1.32 - 1.42   & 1.53 - 1.63   & 0.
 \caption{Temperature and Wind Speed 95\% confidence intervals}
 \end{table}
 
+
+\newpage
 
 \subsection{Similarity hypothesis}
 \textit{
@@ -190,6 +210,60 @@ Test the hypothesis: the time series for Temperature and Wind Speed are the same
 \end{itemize}
 }\\
 
+See Table~\ref{tab:2}
+
+\begin{table}[ht]
+\label{tab:2}
+\begin{tabular}{lllll}
+            & E, D              & D, C            & C, B             & B, A             \\
+Temperature & t=3.000 p=0.003   & t=0.729 p=0.466 & t=-1.324 p=0.185 & t=0.841 p=0.400  \\
+Wind Speed  & t=-32.673 p=0.000 & t=5.871 p=0.000 & t=3.893 p=0.000  & t=-1.501 p=0.134
+\end{tabular}
+\caption{T and P values for tested sensors}
+\end{table}
+
+
+\subsection{CDF and confidence intervals}
+\textit{
+What could you conclude from the p-values?
+}\\
+
+We observe statistically significant differences in Temperature time series for sensor-pair E,D and for Wind Speed time series for sensor-pairs E,D; D,C and C,B, which means that the measured differences unlikely occurred by chance.
+
+
+\newpage
+
+\section{Bonus}
+
+\subsection{AC energy demand}
+\textit{
+Your “employer” wants to estimate the day of maximum and minimum potential energy consumption due to air conditioning (AC) usage. To hypothesize regarding those days, you are asked to identify the hottest and coolest day of the measurement time series provided. How would you do that? Reason and program the python rutine that would allow you to identify those days.
+}\\
+\\For the code see accompanying Python Notebook.
+\\
+\\The 3 hottest days in time-series are:
+\begin{enumerate}
+\item Friday 26 June 2020
+\item Thursday 25 June 2020
+\item Wednesday 24 June 2020
+\end{enumerate}
+\\
+\\The 3 coolest days in time-series are:
+\item 
+\begin{enumerate}
+\item Tuesday 14 July 2020
+\item Wednesday 10 June 2020
+\item Wednesday 08 July 2020
+\end{enumerate}
+
+\bigskip
+\bigskip
+Further more, we consider, that the AC could be set to turn on only in temperatures above certain threshold. I.e. if we turn on AC only in temperatures over 25\°C, the 3 most energy demanding days in time-series would be:
+\begin{enumerate}
+\item Wednesday 24 June 2020
+\item Thursday 25 June 2020
+\item Friday 26 June 2020
+\end{enumerate}
 
 \newpage
 
