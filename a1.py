@@ -11,15 +11,15 @@ from _prompt import prompt
 
 # Question 1
 def print_stats(data):
-    for sensor_name, sensor in data.items():
-        print('\n', sensor_name, '_'*70, '\n')
-    
-        for name, measure in sensor.items():
-            if name != 'FORMATTED DATE-TIME':
-                print("  %s [%s]:" % (name, measure['units']))
-                v = measure['values']
-                stats = (v.mean(), v.var(), v.std())
-                print("    mean = %s  var = %s  st.var. = %s" % stats)
+    for variable, values in data['Sensor A'].items():
+        if variable != 'FORMATTED DATE-TIME':
+            name = ("%s [%s]:" % (variable, values['units']))
+            print('\n', name, '_'*70, '\n')
+        
+            for sensor_name, sensor in data.items():
+                print(sensor_name)
+                v = sensor[variable]['values']
+                print("    mean = %s  var = %s  st.var. = %s" % (v.mean(), v.var(), v.std()))
 
 
 # Question 2
@@ -34,10 +34,10 @@ def show_histograms(data, bins=5):
         ax_index = int(100 + 10*len(data) + i + 1)
         ax = fig.add_subplot(ax_index)
         ax.hist(x=sensor[variable]['values'], 
-                bins=bins, density=True, color='b', alpha=0.7, rwidth=0.85)
+                bins=bins, density=True, rwidth=0.85)
         ax.set_xlabel('%s [%s]' % (variable, sensor[variable]['units']))
         ax.set_ylabel('Frequency')
-        ax.set_title(sensor_name)
+        ax.set_title(sensor_name)y
 
     plt.tight_layout(pad=3.0)
     plt.show()
